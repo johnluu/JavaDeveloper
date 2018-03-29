@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Assign4_5 {
+public class Assign4_1_5 {
 
 
 	
