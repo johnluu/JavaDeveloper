@@ -7,19 +7,19 @@ public class Assign4_3_2 {
 		Scanner scan = new Scanner(System.in);
 		
 		
-		int[] newstuff = new int[10];
+		int[] array = new int[10];
 		
 		
-		for(int i = 0; i < newstuff.length; i++)
+		for(int i = 0; i < array.length; i++)
 			
 		
-			newstuff[i] = (int) (Math.random()*100 + 1);
+			array[i] = (int) (Math.random()*10 + 1);
 		
 		
 	
 		System.out.println("Heres an array ");	
 		System.out.print("[ ");	
-		for(int i: newstuff)
+		for(int i: array)
 		{
 			
 			System.out.print(i + " " );
@@ -30,11 +30,11 @@ public class Assign4_3_2 {
 		System.out.println("Search for a number and return the spot it is in");
 		int input = scan.nextInt();
 		
-		for(int i = 0; i < newstuff.length; i++)
+		for(int i = 0; i < array.length; i++)
 		{
-			if(newstuff[i] == input)
+			if(array[i] == input)
 			
-			System.out.print(i + " " );
+			System.out.println("Found in Array [" + i  + "]");
 		
 			
 		}

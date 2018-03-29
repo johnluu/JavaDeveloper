@@ -1,29 +1,36 @@
+import java.util.Arrays;
 
 public class Assign4_3_1 {
 
 	public static void main(String[] args)
 	{
 		
-		int[] newstuff = new int[10];
+		int[] array = new int[10];
 		
 		
-		for(int i = 0; i < newstuff.length; i++)
+		for(int i = 0; i < array.length; i++)
 			
 		
-			newstuff[i] = (int) (Math.random()*100 + 1);
+			array[i] = (int) (Math.random()*100 + 1);
 		
 		
-		int[] copy = newstuff;
+		int[] copy = array.clone();
 		
 		
-		for(int i = 0; i < newstuff.length; i++)
+		
+		System.out.print("Array {" );
+		for(int i = 0; i < array.length; i++)
 		{
-			
-			System.out.println("New Stuff " + newstuff[i]);
-			System.out.println();
-			
+			System.out.print(array[i] + " ");
 		}
+			System.out.println("}");
 		
-		
+		System.out.print("Copy {" );
+		for(int i = 0; i < copy.length; i++)
+		{
+			System.out.print(copy[i] + " ");
+		}
+			System.out.println("}");		
+			
 	}
 }

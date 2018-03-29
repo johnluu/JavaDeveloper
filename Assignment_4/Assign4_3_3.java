@@ -7,24 +7,24 @@ public class Assign4_3_3 {
 		Scanner scan = new Scanner(System.in);
 		int max = 0;
 		int position = 0;
-		int[] newstuff = new int[10];
+		int[] array = new int[10];
 		
 		
-		for(int i = 0; i < newstuff.length; i++)
+		for(int i = 0; i < array.length; i++)
 		{
 		
-			newstuff[i] = (int) (Math.random()*100 + 1);
-			if(max < newstuff[i] )
+			array[i] = (int) (Math.random()*100 + 1);
+			if(max < array[i] )
 			{
 			position = i;
-			max = newstuff[i];
+			max = array[i];
 			}
 			
 		}
 	
 		System.out.println("Heres an array ");	
 		System.out.print("[ ");	
-		for(int i: newstuff)
+		for(int i: array)
 		{
 			
 			System.out.print(i + " " );

@@ -11,13 +11,13 @@ public class Assign4_3_5 {
 		String s = scan.nextLine();
 		String[] arr = s.split(",");
 		
-		System.out.print("Your array \n"
-				+ "[");
-		for(String temp: arr)
-			System.out.print(temp + " ");
+		System.out.print("Your string array is\n");
+		for(int i = 0; i < arr.length;i++)
+		{
+			System.out.println("arr["+i+"] = " + arr[i] );
 		
-		System.out.println("]");
 		
+		}
 	}
 		
 }
