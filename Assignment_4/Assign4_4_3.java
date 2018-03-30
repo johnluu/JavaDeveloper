@@ -1,6 +1,30 @@
 import java.util.Scanner;
 
 public class Assign4_4_3 {
+	
+	
+	public static char checkWin(char position[][]) {
+		
+		for(int i = 0; i < position.length; i++)
+		{
+			if((position[i][0] == position[i][1] && position[i][1] == position[i][2]) && (position[i][0]!= '#'))
+				return position[i][0];
+			
+			if((position[0][i] == position[1][i] && position[1][i] == position[2][i]) && (position[0][i]!= '#'))
+				return position[i][0];
+		
+		}
+		
+		if(((position[0][0] == position[1][1] && position[1][1] == position[2][2])
+				|| (position[2][0] == position[1][1] && position[1][1] == position[0][2])) &&	(position[1][1]!= '#'))
+			return position[1][1];
+	
+		
+		
+		
+		return '#';
+		
+	}
 
 	public static void main(String[] args)
 	{
@@ -20,6 +44,19 @@ public class Assign4_4_3 {
 		
 		while(turn < 9)
 		{
+			if (checkWin(position) == 'x')
+			{	System.out.println("X wins");
+				break;
+			}
+			else if (checkWin(position) == 'y')
+			{	System.out.println("y wins");
+				break;
+			}
+				
+					
+					
+			
+			
 			System.out.print("Choose a position ");
 			x = scan.nextInt();
 			y = scan.nextInt();
@@ -62,6 +99,6 @@ public class Assign4_4_3 {
 		
 		}
 		System.out.println("Good Game");
-		
+		scan.close();
 	}
 }
