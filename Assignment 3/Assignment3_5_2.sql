@@ -48,7 +48,7 @@ as
 cursor names_cur is
 select first_name,last_name,phone_no
 from students
-where first_name like firstletter ||'%';
+where first_name like first_letter||'%';
 
 names_t  names_cur%ROWTYPE;
 TYPE names_ntt IS TABLE OF names_t%TYPE; -- must use type
@@ -98,74 +98,40 @@ DBMS_OUTPUT.put_line(passYear);
 return passYear;
 
 end;
-
 end ums_package;
 
 
-begin
-UMS_PACKAGE.UPDATE_STUDENT_CONTACT_INFO('r1001','zxsadfa@abc.com','437573257');
-end;
 
-
-create or replace procedure getName(first_letter in char)
-as
-cursor names_cur is
-select first_name,last_name,phone_no
-from students
-where first_name like firstletter ||'%';
-
-names_t  names_cur%ROWTYPE;
-TYPE names_ntt IS TABLE OF names_t%TYPE; -- must use type
-student_contact  names_ntt;
-
-
-    
 BEGIN
 
-  open names_cur;
-  fetch names_cur bulk collect into student_contact;
-  close names_cur;
+UMS_PACKAGE.UPDATE_STUDENT_CONTACT_INFO('r1003', 'flsaflsa@gmail.com',5832785);
 
-for i in 1..student_contact.count
-loop 
-DBMS_OUTPUT.put_line(student_contact(i).first_name ||' ' ||
-student_contact(i).last_name ||' ' ||student_contact(i).phone_no);
-end loop;  
-  
-
-end getName;
+END;
 
 
-create or replace PROCEDURE a_proc
-AS
-    CURSOR names_cur IS
-        SELECT  student_name
-        FROM    student.student_details
-        WHERE   class_id = 'C';
-
-    names_t  names_cur%ROWTYPE;
-    TYPE names_ntt IS TABLE OF names_t%TYPE; -- must use type
-    l_names  names_ntt;
 BEGIN
-    OPEN  names_cur;
-    FETCH names_cur BULK COLLECT INTO l_names;
-    CLOSE names_cur;
 
-    FOR indx IN 1..l_names.COUNT LOOP
-        DBMS_OUTPUT.PUT_LINE(l_names(indx).student_name);
-    END LOOP;
-END a_proc;
+UMS_PACKAGE.GETNAME('R');
 
+END;
 
+DECLARE
+  STUDENT_AGE NUMBER;
 
+BEGIN
 
+STUDENT_AGE :=  UMS_PACKAGE.GETAGE('r1003');
 
-
-
-
-execute getName('R');
-execute getage('r1006');
+END;
 
 
+DECLARE
+YEARSPASSED  NUMBER;
+
+BEGIN
+
+YEARSPASSED :=  UMS_PACKAGE.GETPASS('r1003');
+
+END;
 
  
