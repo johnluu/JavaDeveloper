@@ -41,5 +41,15 @@ public class Assignment5_3_1 {
 				System.out.println(data.get(i));
 				
 			}
+			
+			System.out.println();
+			
+			for(String line : data) {
+				
+				for(int i = line.length()-1;i >=0;i--)
+					System.out.print(line.charAt(i));
+			
+				System.out.println();
+			}
 	}
 }

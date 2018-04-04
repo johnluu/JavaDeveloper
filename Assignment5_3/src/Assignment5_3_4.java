@@ -12,11 +12,6 @@ public class Assignment5_3_4 {
 		
 		ArrayList<Student> data = new ArrayList<Student>();
 		
-
-
-		
-	
-		
 		try {
 			String nameLocation = "C:\\Users\\Students\\Desktop\\names.txt";
 			String gradeLocation = "C:\\Users\\Students\\Desktop\\grades.txt";
