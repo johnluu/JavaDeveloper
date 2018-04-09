@@ -1,8 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class ArrList {
-
 
 		
 	public static ArrayList<String> createArray(String ... s){
@@ -53,9 +53,6 @@ public class ArrList {
 	public static void sortArr(ArrayList<String> arr ) {
 		
 		Collections.sort(arr);
-				
-		
-		
 		return;
 		
 	}
@@ -79,14 +76,16 @@ public class ArrList {
 	}
 
 	
-	public static void compare(ArrayList<String> arr1, ArrayList<String> arr2) {
+	public static ArrayList<String> compare(ArrayList<String> arr1, ArrayList<String> arr2) {
+		
+		ArrayList<String> arr3 = new ArrayList<String>();
 		
 		for(String s: arr2)
 			if(arr1.contains(s))
-				System.out.println(s + " Was found in both lists ");
+				arr3.add(s);
 		
 		
-		return;
+		return arr3;
 	}
 
 	
@@ -95,8 +94,8 @@ public class ArrList {
 		
 
 				
-		for(String s: arr2)
-		arr1.add(s);
+		
+		arr1.addAll(arr2);
 				
 		
 		

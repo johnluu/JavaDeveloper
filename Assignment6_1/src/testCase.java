@@ -62,7 +62,8 @@ public class testCase {
 		////////////////////////////////////////////
 		System.out.println("Compare");
 		copyarr.remove(2); //Removing Magenta
-		ArrList.compare(arr,copyarr);
+		ArrayList<String> compareArr = ArrList.compare(arr,copyarr);
+		ArrList.iterate(compareArr);
 		System.out.println();
 
 
