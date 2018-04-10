@@ -27,9 +27,14 @@ public class FoodCart {
 		System.out.println("How much would you like to order");
 		
 		
-		int quantity = Scan.nextInt();
-		Scan.nextLine();
+		int quantity = -1;
 		
+		
+		while(checkQuantity(quantity))
+		{
+		quantity = Scan.nextInt();
+		Scan.nextLine();
+		}
 		editCart(cart,item,quantity);
 		printCart(cart);
 
@@ -45,7 +50,7 @@ public class FoodCart {
 		System.out.println("Thank you for ordering ");
 		printCart(cart);
 	}
-	
+		
 	public static void printMenu() {
 		System.out.println("What would you like to order \r\n"
 				+ "1: Hamburgers \r\n"
@@ -80,11 +85,28 @@ public class FoodCart {
 			break;
 		default:
 			item = "";
+			System.out.println("Please choose an item from the list");
+			printMenu();
 			break;
 		}
 	
 		return item;
 	}
+	
+	public static boolean checkQuantity(int quantity) {
+		
+		if(quantity < 0)
+		{
+		System.out.println("Please enter a valid quantity");
+		return true;
+		}
+		else
+		
+			
+		return false;
+	
+		
+		}
 	
 	public static void printCart(HashMap<String,Integer> cart) {
 
