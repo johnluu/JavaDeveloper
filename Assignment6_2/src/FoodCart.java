@@ -27,9 +27,7 @@ public class FoodCart {
 		System.out.println("How much would you like to order");
 		
 		
-		int quantity = -1;
-		
-		
+		int quantity = -1;	
 		while(checkQuantity(quantity))
 		{
 		quantity = Scan.nextInt();
