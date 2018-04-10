@@ -108,7 +108,7 @@ public class FoodCart {
 	
 	public static void printCart(HashMap<String,Integer> cart) {
 
-		System.out.println("Current cart ");
+
 		cart.forEach((k,v) ->
 		{
 			
@@ -121,16 +121,19 @@ public class FoodCart {
 	
 	public static void editCart(HashMap<String,Integer> cart,String item,int quantity)
 	{
-		
-		cart.put(item , quantity);
-		
+		if(cart.get(item) != (null))
+		{
+			cart.put(item , quantity + cart.get(item));		
+		}
+		else
+			cart.put(item , quantity);
 	}
 	
 	public static void exitPrompt() {
 		
 		System.out.println("Would you like to order more \r\n"
 				+ "0: to exit \r\n"
-				+ "1: press any key to add or edit items");
+				+ "1: press any key to add items");
 		
 	}
 	
