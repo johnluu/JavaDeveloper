@@ -105,6 +105,8 @@ public class NewQuestionDAO implements NewQuestionDAOI{
 		String col[] = {"question_id"};
 		
 		try {
+			System.out.println("HEHEHEHEGHE");
+			
 			conn = OracleConnection.getConnection();
 			stmt = conn.prepareStatement(OracleQueries.CREATEQUESTION, col);
 			stmt.setInt(1, userid);
