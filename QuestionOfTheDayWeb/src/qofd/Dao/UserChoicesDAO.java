@@ -18,6 +18,7 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		PreparedStatement stmt2 = null;
+		PreparedStatement stmt3 = null;
 		int id = 0;
 		ResultSet result = null;
 		String[] col = {"option_id"};
@@ -25,6 +26,7 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 		try {
 			conn = OracleConnection.getConnection();
 			stmt = conn.prepareStatement(OracleQueries.CREATEUSERCHOICES, col);
+
 			
 			stmt.setInt(1, userid);
 			stmt.setInt(2, questionid);
@@ -37,6 +39,11 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 			
 			if (result.next())
 			{
+				
+				stmt3 = conn.prepareStatement(OracleQueries.INCQUESTIONSCORE);
+				stmt3.setInt(1,questionid);
+				stmt3.executeUpdate();
+				
 				stmt2 = conn.prepareStatement(OracleQueries.INCOPTIONSCORE);
 				stmt2.setInt(1, optionid);
 				stmt2.executeUpdate();
@@ -61,6 +68,8 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 			stmt.close();
 		if(stmt2 != null)
 			stmt.close();
+		if(stmt3 != null)
+			stmt3.close();
 		
 		
 		
@@ -68,7 +77,7 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 	}
 
 	@Override
-	public int changeUserChoice(int userid, int questionid,int oldoptionid, int optionid ) {
+	public int changeUserChoice(int userid, int questionid,int oldoptionid, int optionid ) throws SQLException {
 		
 
 		Connection conn = null;
@@ -88,13 +97,9 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 			
 
 			
-			stmt.executeUpdate();
-			
-			
-			
-		
+				result = stmt.executeUpdate();
 				
-				
+				if(result > 0) {
 				stmt2 = conn.prepareStatement(OracleQueries.DECOPTIONSCORE);
 				stmt3 = conn.prepareStatement(OracleQueries.INCOPTIONSCORE);
 				
@@ -103,6 +108,7 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 				stmt2.executeUpdate();
 				stmt3.setInt(1, optionid);
 				stmt3.executeUpdate();
+				}
 			
 			
 			
@@ -112,6 +118,14 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 		}
 		
 		
+		if(conn != null)
+			conn.close();
+		if(stmt != null)
+			stmt.close();
+		if(stmt2 != null)
+			stmt.close();
+		if(stmt3 != null)
+			stmt3.close();
 		
 		return result;
 	}
@@ -150,6 +164,43 @@ public class UserChoicesDAO implements UserChoicesDAOI{
 		
 		
 		return userChoices;
+	}
+	
+	@Override
+	public int getUserQChoice(int userid, int questionid) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int userChoice = 0;
+		ResultSet result = null;
+		
+		try {
+			conn = OracleConnection.getConnection();
+			stmt = conn.prepareStatement(OracleQueries.GETUSERQCHOICES);
+			stmt.setInt(1, userid);
+			stmt.setInt(2, questionid);
+			result = stmt.executeQuery();
+			
+			if (result.next())
+				userChoice = result.getInt(1);
+			
+			
+			
+			
+		} catch (ClassNotFoundException | IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(conn != null)
+			conn.close();
+		if(result != null)
+			result.close();
+		if(stmt != null)
+			stmt.close();
+		
+		
+		return userChoice;
 	}
 
 }

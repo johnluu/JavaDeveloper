@@ -1,28 +1,16 @@
 insert into Users (email,password,first_name,last_name)
-values('test2@gmail.com','asasasa','john','luu');
+values('test','test','john','luu');
 
 insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends',sysdate,100);
+values(1,'How are you my friends',sysdate-1,100);
 insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends2',sysdate,200);
+values(1,'How are you my friends2',sysdate-1,200);
 insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends3',sysdate,300);
+values(1,'How are you my friends3',sysdate-1,300);
 insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends4',sysdate,400);
+values(1,'How are you my friends4',sysdate-1,400);
 insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends5',sysdate,500);
-insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends6',sysdate,600);
-insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends7',sysdate,700);
-insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends8',sysdate,800);
-insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends9',sysdate,900);
-insert into new_questions (user_id,question_text,question_date,watches)
-values(1,'How are you my friends10',sysdate,1000);
-
-
+values(1,'How are you my friends5',sysdate-1,500);
 
 insert into new_options(question_id,option_text)
 values(1,'Good');
@@ -61,6 +49,35 @@ insert into new_options(question_id,option_text)
 values(5,'Bad');
 insert into new_options(question_id,option_text)
 values(5,'Average');
+
+
+INSERT INTO QUESTIONS(QUESTION_ID,USER_ID,QUESTION_TEXT,WATCHES,QUESTION_DATE)
+select QUESTION_ID,USER_ID,QUESTION_TEXT,WATCHES,QUESTION_DATE from new_questions
+order by watches desc, question_date asc
+fetch first 5 rows only;
+
+
+INSERT INTO OPTIONS(OPTION_ID,QUESTION_ID,OPTION_TEXT)
+select OPTION_ID,QUESTION_ID,OPTION_TEXT from new_options
+where QUESTION_ID in (select QUESTION_ID from new_questions
+order by watches desc, question_date asc
+fetch first 5 rows only);
+
+
+delete from user_watching;
+delete from new_options;
+delete from new_questions;
+
+insert into new_questions (user_id,question_text,question_date,watches)
+values(1,'How are you my friends6',sysdate,600);
+insert into new_questions (user_id,question_text,question_date,watches)
+values(1,'How are you my friends7',sysdate,700);
+insert into new_questions (user_id,question_text,question_date,watches)
+values(1,'How are you my friends8',sysdate,800);
+insert into new_questions (user_id,question_text,question_date,watches)
+values(1,'How are you my friends9',sysdate,900);
+insert into new_questions (user_id,question_text,question_date,watches)
+values(1,'How are you my friends10',sysdate,1000);
 
 
 insert into new_options(question_id,option_text)
@@ -106,12 +123,10 @@ values(10,'Bad');
 insert into new_options(question_id,option_text)
 values(10,'Average');
 
-
 INSERT INTO QUESTIONS(QUESTION_ID,USER_ID,QUESTION_TEXT,WATCHES,QUESTION_DATE)
 select QUESTION_ID,USER_ID,QUESTION_TEXT,WATCHES,QUESTION_DATE from new_questions
 order by watches desc, question_date asc
 fetch first 5 rows only;
-
 
 
 INSERT INTO OPTIONS(OPTION_ID,QUESTION_ID,OPTION_TEXT)
@@ -120,41 +135,25 @@ where QUESTION_ID in (select QUESTION_ID from new_questions
 order by watches desc, question_date asc
 fetch first 5 rows only);
 
-INSERT INTO USER_CHOICES(USER_ID,QUESTION_ID,OPTION_ID) 
-			VALUES(1,6,16);
-      
-UPDATE OPTIONS SET OPTION_SCORE = OPTION_SCORE + 1   
-			WHERE OPTION_ID = 16;
-      
-INSERT INTO USER_CHOICES(USER_ID,QUESTION_ID,OPTION_ID) 
-			VALUES(1,7,19);
 
-UPDATE OPTIONS SET OPTION_SCORE = OPTION_SCORE + 1   
-			WHERE OPTION_ID = 20;
-      
-INSERT INTO USER_CHOICES(USER_ID,QUESTION_ID,OPTION_ID) 
-			VALUES(1,8,20);
 
-UPDATE OPTIONS SET OPTION_SCORE = OPTION_SCORE + 1   
-			WHERE OPTION_ID = 20;
-      
-INSERT INTO USER_CHOICES(USER_ID,QUESTION_ID,OPTION_ID) 
-			VALUES(1,9,22);
+insert into questions (question_id,user_id,question_text,question_date,watches)
+values(1,'How are you my friends11',sysdate,400);
 
-UPDATE OPTIONS SET OPTION_SCORE = OPTION_SCORE + 1   
-			WHERE OPTION_ID = 22;
-      
-INSERT INTO USER_CHOICES(USER_ID,QUESTION_ID,OPTION_ID) 
-			VALUES(1,10,23);
-      
-UPDATE OPTIONS SET OPTION_SCORE = OPTION_SCORE + 1   
-			WHERE OPTION_ID = 23;
+insert into new_options(question_id,option_text)
+values(11,'Good');
+insert into new_options(question_id,option_text)
+values(11,'Bad');
+insert into new_options(question_id,option_text)
+values(11,'Average');
 
-INSERT INTO USER_WATCHING (USER_ID,QUESTION_ID)
-VALUES(1,1);
+select * from comments;
 
-UPDATE NEW_QUESTIONS SET WATCHES = WATCHES + 1
-where QUESTION_ID = 1;
+
+select * from user_choices;
+
+select option_id from user_choices where question_id = 7 and USER_ID = 1;
+
 --
 --INSERT INTO USER_WATCHING (USER_ID,QUESTION_ID)
 --VALUES(1,2);
@@ -168,3 +167,7 @@ select * from options;
 SELECT OPTIONS.* FROM OPTIONS
 JOIN QUESTIONS ON QUESTIONS.QUESTION_ID = OPTIONS.QUESTION_ID
 			 where QUESTIONS.QUESTION_DATE >= trunc(sysdate);
+       
+select * from questions;
+commit;
+select * from questions where question_date >= trunc(sysdate);

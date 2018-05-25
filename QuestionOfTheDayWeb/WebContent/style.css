@@ -1,0 +1,76 @@
+
+
+.header{
+	height: 20vh;
+	background-color: coral;
+	
+}
+
+.maincontainer{
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+.leftcontainer{
+	width: 20%;
+	flex-direction: column;
+}
+
+.middlecontainer{
+	width: 60%;
+	flex-direction: column;
+	
+}
+
+.middlecontainerHeading
+{	text-align: center;
+	width: 100%;
+}
+
+.rightcontainer{
+	width: 20%;
+	flex-direction: column;
+}
+
+.rightcontainerHeading
+{	text-align: center;
+	width: 100%;
+}
+
+.footer{
+	
+	height: 10vh;
+	background-color: blue;
+}
+
+
+.Questionmaincontainer{
+	width: 100%;
+	margin:0%, 20%
+	
+}
+
+.Questionrightcontainer{
+	width: 20%;
+	
+	
+}
+
+.Questionleftcontainer{
+	width: 20%;
+	
+	
+}
+
+
+.Questionformcontainer
+{
+	
+	margin-left: 20%;
+	 
+}
+
+
+

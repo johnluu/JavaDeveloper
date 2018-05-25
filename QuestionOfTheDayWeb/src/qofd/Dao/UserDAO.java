@@ -66,7 +66,8 @@ public class UserDAO implements UserDAOI{
 			result = stmt.executeQuery();
 			
 			if(result.next())
-				user = new User(result.getInt(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+				user = new User(result.getInt(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getInt(6),
+						result.getInt(7),result.getInt(8));
 			
 		} catch (ClassNotFoundException | IOException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -106,7 +107,8 @@ public class UserDAO implements UserDAOI{
 			result = stmt.executeQuery();
 			
 			if(result.next())
-				user = new User(result.getInt(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5));
+				user = new User(result.getInt(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5),
+						result.getInt(6),result.getInt(7),result.getInt(8));
 			
 		} catch (ClassNotFoundException | IOException | SQLException e) {
 			// TODO Auto-generated catch block

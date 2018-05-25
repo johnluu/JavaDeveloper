@@ -40,6 +40,7 @@ order by watches desc, question_date asc
 fetch first 5 rows only;
 
 
+
 --INSERT NEW_OPTIONS INTO OPTIONS
 INSERT INTO OPTIONS(OPTION_ID,QUESTION_ID,OPTION_TEXT)
 select OPTION_ID,QUESTION_ID,OPTION_TEXT from new_options
@@ -104,8 +105,8 @@ VALUES (1,6,'This question sucks');
 -------------------------------------------------------------
 
 --Getting todays questions
-Select * from QUESTIONS where QUESTION_DATE >= trunc(sysdate);
-
+Select * from QUESTIONS where QUESTION_DATE >= trunc(sysdate-1);
+select * from Questions;
 --Getting choices from questions
 select * from OPTIONS where question_id = 10;
 
@@ -117,6 +118,62 @@ Select * from New_Questions;
 
 --Getting New Options from new users
 select * from new_OPTIONS where question_id = 11;
+
+
+--AUTOMATICALLY TRUNCATE TABLES ETC
+begin
+  dbms_scheduler.create_job
+  (
+   job_name             => 'UPDATE_TABLE',
+   job_type             => 'PLSQL_BLOCK',
+   job_action           => 'begin
+                            INSERT INTO QUESTIONS(QUESTION_ID,USER_ID,QUESTION_TEXT,WATCHES,QUESTION_DATE)
+                            select QUESTION_ID,USER_ID,QUESTION_TEXT,WATCHES,QUESTION_DATE from new_questions
+                            order by watches desc, question_date asc
+                            fetch first 5 rows only;
+
+                            INSERT INTO OPTIONS(OPTION_ID,QUESTION_ID,OPTION_TEXT)
+                            select OPTION_ID,QUESTION_ID,OPTION_TEXT from new_options
+                            where QUESTION_ID in (select QUESTION_ID from new_questions
+                            order by watches desc, question_date asc
+                            fetch first 5 rows only);
+
+                            delete from new_options;
+                            delete from user_watching;
+                            delete from new_questions;
+                            commit; end;',
+                            
+   start_date           =>  trunc(sysdate+1),
+   repeat_interval      => 'FREQ=DAILY;BYHOUR=0;BYMINUTE=0',
+   enabled              => TRUE,
+   auto_drop            => FALSE
+  );
+end;
+
+declare
+   l_job_exists number;
+begin
+   select count(*) into l_job_exists
+     from user_scheduler_jobs
+    where job_name = 'UPDATE_TABLE'
+          ;
+
+   if l_job_exists = 1 then
+      dbms_scheduler.drop_job(job_name => 'UPDATE_TABLE');
+   end if;
+end;
+
+EXEC  DBMS_SCHEDULER.ENABLE('UPDATE_TABLE');
+
+EXEC DBMS_SCHEDULER.drop_job(job_name => 'UPDATE_TABLE');
+--https://dba.stackexchange.com/questions/135571/auto-update-a-column-every-24-hours-in-oracle-database
+
+--SELECT owner, job_name, comments FROM dba_scheduler_jobs;
+
+GRANT SELECT ON SYS.DBA_JOBS_RUNNING TO john;
+
+SELECT * FROM dba_scheduler_jobs; --ONLY DBA CAN USE THIS ONE
+SELECT * FROM user_scheduler_jobs;
 
 
 
